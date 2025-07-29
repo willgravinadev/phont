@@ -1,0 +1,557 @@
+language: pt-BR
+
+early_access: true
+
+reviews:
+  auto_title_instructions: 'Analyze code changes and provide a concise summary focusing on main modifications, potential impacts, and concerns that need attention.'
+  profile: 'assertive'
+  request_changes_workflow: false
+  high_level_summary: true
+  review_status: true
+  commit_status: true
+  suggested_reviewers: true
+  assess_linked_issues: true
+  auto_review:
+    enabled: true
+    auto_incremental_review: true
+    drafts: true
+    base_branches:
+      - 'master'
+      - 'main'
+      - 'develop'
+      - 'staging'
+
+  poem: true
+  collapse_walkthrough: true
+  sequence_diagrams: true
+  changed_files_summary: true
+
+  path_filters:
+    # Ignore binary and media files
+    - '!**/*.{svg,png,jpg,jpeg,gif,ico,webp,pdf,mp4,mov,avi,woff,woff2,ttf,eot}'
+
+    # Ignore build outputs and dependencies
+    - '!**/{dist,build,coverage,node_modules,.turbo,.next,.nuxt,out}/**'
+    - '!**/*.lock'
+    - '!**/pnpm-lock.yaml'
+    - '!**/yarn.lock'
+    - '!**/package-lock.json'
+
+    # Ignore cache and temporary files
+    - '!**/{logs,temp,.cache,.swc,.vercel,.netlify,tmp}/**'
+    - '!**/*.generated.*'
+    - '!**/*.gen.*'
+    - '!**/.env.local'
+    - '!**/.env.production'
+    - '!**/.env.development'
+
+    # Ignore database and migration files
+    - '!packages/db/prisma/migrations/**'
+    - '!**/prisma/migrations/**'
+    - '!**/*.sqlite'
+    - '!**/*.db'
+    - '!**/prisma/seed.ts'
+
+    # Ignore Storybook build outputs
+    - '!**/storybook-static/**'
+    - '!**/.storybook/main.js'
+
+    # Ignore test outputs and reports
+    - '!**/coverage/**'
+    - '!**/test-results/**'
+    - '!**/playwright-report/**'
+    - '!**/lighthouse-reports/**'
+    - '!**/*.lighthouse.json'
+
+    # Ignore Turborepo specific files
+    - '!**/.turbo/**'
+    - '!**/turbo.json'
+
+    # Ignore Crowdin and translation build files
+    - '!**/crowdin.yml'
+    - '!**/translations/**/*.json'
+
+    # Ignore Checkly generated files
+    - '!**/__checks__/generated/**'
+
+  tools:
+    # Core linting and formatting
+    eslint:
+      enabled: true
+    markdownlint:
+      enabled: true
+
+    # Security and vulnerability scanning
+    actionlint:
+      enabled: true
+    checkov:
+      enabled: true
+    gitleaks:
+      enabled: true
+    hadolint:
+      enabled: true
+
+    # Code quality and analysis
+    github-checks:
+      enabled: true
+      timeout_ms: 120000
+    oxc:
+      enabled: true
+
+    # Database and schema validation
+    prismaLint:
+      enabled: true
+
+    # Shell scripting
+    shellcheck:
+      enabled: true
+
+    # YAML validation
+    yamllint:
+      enabled: true
+
+  related_issues: true
+  related_prs: true
+
+  path_instructions:
+    # Turborepo configuration
+    - path: 'turbo.json'
+      instructions: |
+        Review checklist for Turborepo Configuration:
+        1. Review Tone
+           - Be specific about pipeline configurations and task dependencies
+           - Suggest performance optimizations for build caching
+           - Validate task ordering and parallel execution strategies
+           - Ensure proper workspace filtering and scoping
+
+        2. Pipeline Configuration
+           - Verify correct task dependencies (build -> test -> lint)
+           - Check cache configuration with proper inputs and outputs
+           - Validate workspace filtering patterns
+           - Ensure proper environment variable handling
+           - Check for optimal parallelization strategies
+
+        3. Cache Optimization
+           - Verify cache keys include all relevant inputs
+           - Check output patterns are comprehensive
+           - Validate remote cache configuration if applicable
+           - Ensure proper cache invalidation strategies
+
+    # Package.json configurations
+    - path: '**/package.json'
+      instructions: |
+        Review checklist for Package.json in Turborepo:
+        1. Dependencies
+           - Check for consistent versions across workspace
+           - Validate peer dependencies are correctly specified
+           - Ensure dev dependencies are properly categorized
+           - Check for unnecessary dependencies
+
+        2. Scripts
+           - Verify Turborepo commands use proper filtering
+           - Validate script naming conventions
+           - Ensure proper workspace script chaining
+
+        3. Workspace Configuration
+           - Validate workspace references and dependencies
+           - Check for proper monorepo structure adherence
+           - Ensure consistent naming conventions
+
+    - path: '**/*{-api,-server}/**/*.ts'
+      instructions: |
+        Review checklist for Hono Framework:
+        1. Review Tone
+           - Be specific: Reference the exact line, file, or code pattern.
+           - Be constructive: Suggest improvements, don't just point out problems.
+           - Explain the why: Provide justifications or links to documentation/standards.
+           - Be concise but complete: Avoid vague comments like "fix this".
+           - Use examples: Show how to improve, not just what's wrong.
+           - Be respectful and professional.
+
+        2. Hono Patterns
+           - Use proper Hono app instance creation with `new Hono()`
+           - Leverage Hono's type-safe routing with proper handlers
+           - Use Hono's built-in validation with zod or other schema libraries
+           - Implement proper error handling with Hono's error handling middleware
+           - Use appropriate Hono middleware (@hono/cors, @hono/swagger-ui, etc.)
+           - Utilize Hono's context object for request/response handling
+           - Follow Hono's middleware patterns and lifecycle
+           - Use proper TypeScript inference with Hono's type system
+
+        3. Performance with NodeJS and Pnpm
+           - Leverage Node.js native performance optimizations
+           - Use Hono's streaming capabilities for large responses
+           - Implement proper caching strategies with Hono middleware
+           - Avoid blocking operations in request handlers
+           - Use Hono's efficient routing and middleware system
+           - Consider using Hono's static file serving for assets
+           - Optimize for Node.js runtime specific features
+
+        4. Security
+           - Implement strict input validation using zod or similar schema validation
+           - Configure CORS appropriately with @hono/cors middleware
+           - Use rate limiting with appropriate middleware
+           - Sanitize and validate all user inputs
+           - Implement proper authentication patterns with JWT or similar
+           - Use HTTPS in production and secure headers
+           - Validate file uploads and implement size limits
+
+        5. Code Quality
+           - Use consistent error response formats
+           - Implement proper logging with structured data
+           - Use OpenAPI/Swagger documentation with @hono/swagger-ui
+           - Follow consistent naming conventions for routes and handlers
+           - Implement proper testing with Hono's testing utilities
+           - Use environment-based configuration management
+
+    # Next.js Applications
+    - path: '**/*{-web,-app}/**/*.{ts,tsx}'
+      instructions: |
+        Review checklist for Next.js 15 + TanStack Query + Tailwind CSS + ShadCN/UI:
+        1. Review Tone
+           - Be specific: Reference the exact line, file, or code pattern.
+           - Be constructive: Suggest improvements, don't just point out problems.
+           - Explain the why: Provide justifications or links to documentation/standards.
+           - Be concise but complete: Avoid vague comments like "fix this".
+           - Use examples: Show how to improve, not just what's wrong.
+           - Be respectful and professional.
+
+        2. Next.js 15 Patterns
+           - Use App Router with proper file conventions (page.tsx, layout.tsx, etc.)
+           - Implement proper Server Components vs Client Components usage
+           - Use Next.js 15's new async components and concurrent features
+           - Leverage Server Actions for form handling and mutations
+           - Use proper metadata API for SEO optimization
+           - Implement proper loading.tsx and error.tsx boundaries
+           - Use Next.js Image component with proper optimization
+           - Follow Next.js routing patterns (dynamic routes, route groups, parallel routes)
+           - Use proper TypeScript types with Next.js (NextRequest, NextResponse, etc.)
+
+        3. TanStack Query (React Query) Patterns
+           - Use proper query keys with consistent naming conventions
+           - Implement proper error handling with onError callbacks
+           - Use appropriate stale time and cache time configurations
+           - Leverage Query Devtools in development
+           - Use mutations with proper optimistic updates
+           - Implement proper loading and error states
+           - Use query invalidation strategically after mutations
+           - Follow TanStack Query best practices for dependent queries
+           - Use proper TypeScript types with useQuery and useMutation hooks
+
+        4. TanStack Table Integration
+           - Use proper column definitions with type safety
+           - Implement proper sorting, filtering, and pagination
+           - Use TanStack Table's virtual scrolling for large datasets
+           - Integrate with TanStack Query for server-side operations
+           - Implement proper accessibility patterns for tables
+           - Use consistent table styling with Tailwind CSS
+
+        5. Tailwind CSS + ShadCN/UI Best Practices
+           - Use ShadCN/UI components as base, customize with Tailwind
+           - Follow consistent design system with proper color palette
+           - Use Tailwind's responsive design patterns (sm:, md:, lg:, xl:)
+           - Implement proper dark mode support with ShadCN/UI themes
+           - Use ShadCN/UI's component variants and slots pattern
+           - Avoid arbitrary values unless absolutely necessary
+           - Use proper accessibility classes and ARIA attributes
+           - Follow ShadCN/UI's composition patterns for complex components
+
+        6. Performance & Optimization
+           - Use Next.js dynamic imports for code splitting
+           - Implement proper image optimization with next/image
+           - Use React.lazy() and Suspense for component lazy loading
+           - Optimize TanStack Query cache strategies
+           - Use proper memoization techniques (useMemo, useCallback)
+           - Implement proper prefetching strategies
+           - Monitor Core Web Vitals and optimize accordingly
+
+        7. Internationalization (i18n)
+           - Use Next.js built-in i18n support or next-intl
+           - Implement proper locale routing and detection
+           - Use consistent translation key naming conventions
+           - Ensure proper RTL language support
+           - Validate translation completeness with Crowdin integration
+           - Test language switching functionality
+
+    # Storybook Stories and Documentation
+    - path: '**/*.stories.{ts,tsx}'
+      instructions: |
+        Review checklist for Storybook with ShadCN/UI:
+        1. Story Structure
+           - Use proper CSF (Component Story Format) 3.0 patterns
+           - Implement comprehensive component variants and states
+           - Use proper TypeScript types for story args
+           - Include interactive controls for all props
+           - Document component usage with proper descriptions
+
+        2. ShadCN/UI Integration
+           - Test all component variants from ShadCN/UI
+           - Include dark/light mode toggles in stories
+           - Test responsive behavior across different viewports
+           - Include accessibility testing with Storybook a11y addon
+           - Document component composition patterns
+
+        3. Documentation
+           - Use MDX for comprehensive component documentation
+           - Include usage examples and best practices
+           - Document accessibility considerations
+           - Include design tokens and theme integration
+           - Provide migration guides for component updates
+
+    # Prisma Database Layer
+    - path: '**/prisma/**/*.{ts,prisma}'
+      instructions: |
+        Review checklist for Prisma ORM:
+        1. Schema Design
+           - Use proper Prisma schema conventions and naming
+           - Implement appropriate database constraints and indexes
+           - Use proper field types and attributes
+           - Follow consistent naming conventions for models and fields
+           - Implement proper relations and foreign keys
+
+        2. Performance
+           - Use proper database indexes for query optimization
+           - Implement pagination patterns for large datasets
+           - Use select and include strategically to avoid N+1 queries
+           - Consider database-specific optimizations
+           - Use proper connection pooling configurations
+
+        3. Type Safety
+           - Generate proper Prisma client types
+           - Use Prisma's type-safe query building
+           - Implement proper error handling for database operations
+           - Use transaction patterns where appropriate
+           - Validate data integrity with Prisma validators
+
+        4. Migrations
+           - Write descriptive migration names and comments
+           - Test migrations in development before applying to production
+           - Consider backward compatibility in schema changes
+           - Use proper rollback strategies
+           - Document breaking changes in schema evolution
+
+    # Testing Files - Vitest Unit Tests
+    - path: '**/*.{test,spec}.{ts,tsx}'
+      instructions: |
+        Review checklist for Vitest Unit Testing:
+        1. Review Tone
+           - Be specific: Reference the exact line, file, or code pattern.
+           - Be constructive: Suggest improvements, don't just point out problems.
+           - Explain the why: Provide justifications or links to documentation/standards.
+           - Be concise but complete: Avoid vague comments like "fix this".
+           - Use examples: Show how to improve, not just what's wrong.
+           - Be respectful and professional.
+
+        2. Vitest Patterns
+           - Use descriptive test names that explain expected behavior
+           - Follow AAA pattern (Arrange, Act, Assert) in test structure
+           - Use proper TypeScript types for test functions and mocks
+           - Implement proper test isolation with beforeEach/afterEach hooks
+           - Use Vitest's built-in matchers and utilities (expect, vi.mock, etc.)
+           - Test both happy path and edge cases
+           - Use proper async/await patterns for asynchronous tests
+           - Mock external dependencies appropriately with vi.mock()
+
+        3. Component Testing
+           - Use @testing-library/react for component testing
+           - Test user interactions and behavior, not implementation details
+           - Use proper accessibility queries (getByRole, getByLabelText)
+           - Test different component states and props combinations
+           - Mock API calls and external dependencies
+           - Test error boundaries and loading states
+
+        4. Integration with Pnpm
+           - Leverage pnpm's efficient package management and workspace features
+           - Use proper workspace filtering for monorepo testing
+           - Optimize test configuration for Node.js runtime
+           - Use proper watch mode for development testing
+
+        5. Coverage and Quality
+           - Maintain high test coverage for critical business logic
+           - Use meaningful assertions with clear error messages
+           - Implement proper test data management and fixtures
+           - Use test.each() for parameterized tests
+           - Write tests that are independent and can run in any order
+
+    # Playwright E2E Tests
+    - path: '**/__e2e__/**/*.{ts,tsx}'
+      instructions: |
+        Review checklist for Playwright E2E Testing:
+        1. Test Structure
+           - Use Page Object Model pattern for better maintainability
+           - Implement proper element locators (data-testid, role-based)
+           - Use Playwright's auto-waiting capabilities instead of manual waits
+           - Test across multiple browsers and devices when necessary
+           - Use proper assertions with expect() from @playwright/test
+
+        2. Critical User Journeys
+           - Test complete user workflows end-to-end
+           - Include authentication flows and protected routes
+           - Test form submissions and data persistence
+           - Validate email notifications and external integrations
+           - Test responsive behavior across different viewports
+
+        3. Performance Testing
+           - Integrate Lighthouse audits in critical user flows
+           - Monitor Core Web Vitals during E2E tests
+           - Test loading performance under different network conditions
+           - Validate accessibility during user interactions
+           - Test progressive web app features if applicable
+
+        4. Checkly Integration
+           - Structure tests for Checkly monitoring compatibility
+           - Use proper environment variable management
+           - Implement proper retry strategies for flaky tests
+           - Include proper alerting and notification setup
+           - Test from multiple geographic locations
+
+    # Configuration Files
+    - path: '**/{vitest,playwright,lighthouse}.config.{ts,js}'
+      instructions: |
+        Review checklist for Test Configuration:
+        1. Configuration Completeness
+           - Ensure all necessary plugins and extensions are configured
+           - Validate proper test environment setup
+           - Check browser and device configurations for Playwright
+           - Verify Lighthouse audit configurations and thresholds
+           - Ensure proper reporter configurations for CI/CD
+
+        2. Performance Optimization
+           - Configure parallel test execution appropriately
+           - Set proper timeouts for different test types
+           - Use efficient test discovery patterns
+           - Configure proper cleanup and teardown procedures
+           - Optimize test artifact collection (screenshots, videos, reports)
+
+    # Crowdin Translation Files
+    - path: '**/crowdin.yml'
+      instructions: |
+        Review checklist for Crowdin Configuration:
+        1. Translation Management
+           - Verify proper source file patterns and destinations
+           - Check translation workflow and approval processes
+           - Validate file format configurations (JSON, YAML, etc.)
+           - Ensure proper branch management for translations
+           - Configure proper translator permissions and access
+
+        2. Quality Assurance
+           - Set up proper quality gates for translations
+           - Configure translation memory and consistency checks
+           - Implement proper review processes for critical content
+           - Validate pluralization rules for different languages
+           - Check context and screenshot provisions for translators
+
+    # Checkly Monitoring Files
+    - path: '**/__checks__/**/*.{ts,js}'
+      instructions: |
+        Review checklist for Checkly Monitoring:
+        1. Monitor Configuration
+           - Use proper check scheduling and frequency
+           - Configure appropriate alerting thresholds
+           - Set up proper geographic distribution for checks
+           - Implement proper authentication for protected endpoints
+           - Configure proper retry policies and error handling
+
+        2. Performance Monitoring
+           - Monitor critical API endpoints and response times
+           - Set up proper uptime monitoring for key services
+           - Configure performance budgets and alerting
+           - Monitor database connectivity and health
+           - Implement proper synthetic transaction monitoring
+
+    # Spell Check Configuration
+    - path: '**/cspell.{json,yaml,yml}'
+      instructions: |
+        Review checklist for CSpell Configuration:
+        1. Dictionary Management
+           - Include proper technical dictionaries for the project
+           - Configure project-specific word lists
+           - Set up proper ignore patterns for generated files
+           - Include proper language-specific dictionaries
+           - Configure proper case sensitivity rules
+
+        2. Integration
+           - Ensure proper CI/CD integration for spell checking
+           - Configure proper file type coverage
+           - Set up proper exclusion patterns for third-party code
+           - Include proper developer workflow integration
+           - Configure proper error reporting and suggestions
+
+    # Knip Dead Code Detection
+    - path: '**/knip.{json,ts}'
+      instructions: |
+        Review checklist for Knip Configuration:
+        1. Dead Code Detection
+           - Configure proper entry points for all applications
+           - Set up proper workspace detection for monorepo
+           - Configure ignore patterns for legitimate unused exports
+           - Set up proper plugin configurations for frameworks
+           - Configure proper dependency analysis settings
+
+        2. Maintenance
+           - Regularly review and clean up detected unused code
+           - Configure proper CI/CD integration for automated checks
+           - Set up proper reporting for code health metrics
+           - Include proper documentation for ignore patterns
+           - Configure proper team workflow for code cleanup
+
+knowledge_base:
+  opt_out: false
+  learnings:
+    scope: 'auto'
+  pull_requests:
+    scope: 'auto'
+  linear:
+    usage: auto
+    team_keys:
+      - 'BENT'
+
+code_generation:
+  unit_tests:
+    path_instructions:
+      - path: '**/*.{ts,tsx}'
+        instructions: |
+          Review checklist for Unit Tests:
+          1. Review Tone
+             - Be specific: Reference the exact line, file, or code pattern.
+             - Be constructive: Suggest improvements, don't just point out problems.
+             - Explain the why: Provide justifications or links to documentation/standards.
+             - Be concise but complete: Avoid vague comments like "fix this".
+             - Use examples: Show how to improve, not just what's wrong.
+             - Be respectful and professional.
+
+          2. Vitest Patterns
+             - Use descriptive test names that explain expected behavior
+             - Follow AAA pattern (Arrange, Act, Assert) in test structure
+             - Use proper TypeScript types for test functions and mocks
+             - Implement proper test isolation with beforeEach/afterEach hooks
+             - Use Vitest's built-in matchers and utilities (expect, vi.mock, etc.)
+             - Test both happy path and edge cases
+             - Use proper async/await patterns for asynchronous tests
+             - Mock external dependencies appropriately with vi.mock()
+
+          3. Component Testing
+             - Use @testing-library/react for component testing
+             - Test user interactions and behavior, not implementation details
+             - Use proper accessibility queries (getByRole, getByLabelText)
+             - Test different component states and props combinations
+             - Mock API calls and external dependencies
+             - Test error boundaries and loading states
+
+ignore_patterns:
+  - '**/node_modules/**'
+  - '**/dist/**'
+  - '**/build/**'
+  - '**/.turbo/**'
+  - '**/coverage/**'
+  - '**/test-results/**'
+  - '**/playwright-report/**'
+  - '**/storybook-static/**'
+  - '**/lighthouse-reports/**'
+
+# Performance optimizations for large monorepos
+performance:
+  max_files_per_review: 50
+  max_lines_per_file: 2000
+  timeout_minutes: 15
+  parallel_processing: true
