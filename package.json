@@ -13,6 +13,7 @@
     "check:lint": "turbo run check:lint && eslint . --max-warnings 0",
     "check:spelling": "cspell .",
     "check:types": "turbo run check:types",
+    "check:updates": "turbo run check:updates && ncu -u",
     "clean": "turbo clean && rm -rf .turbo coverage node_modules pnpm-lock.yaml",
     "cm": "czg",
     "dev": "turbo run dev",
@@ -71,6 +72,7 @@
     "husky": "^9.1.7",
     "knip": "^5.62.0",
     "lint-staged": "^16.1.2",
+    "npm-check-updates": "^18.0.2",
     "turbo": "^2.5.5",
     "typescript": "^5.8.3",
     "vitest": "^3.2.4"

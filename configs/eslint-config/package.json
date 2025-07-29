@@ -17,6 +17,7 @@
     "build": "rslib build",
     "check:lint": "eslint . --max-warnings 0",
     "check:types": "tsc --noEmit",
+    "check:updates": "ncu -u",
     "clean": "rm -rf .turbo dist node_modules build",
     "dev": "rslib build --watch",
     "fix:lint": "eslint --fix ."
@@ -53,7 +54,8 @@
     "@phont/typescript-config": "workspace:*",
     "@rslib/core": "^0.11.0",
     "@types/node": "^24.1.0",
-    "eslint": "^9.32.0"
+    "eslint": "^9.32.0",
+    "npm-check-updates": "^18.0.2"
   },
   "peerDependencies": {
     "eslint": "^9.20.0"

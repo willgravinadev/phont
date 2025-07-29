@@ -17,6 +17,7 @@
     "build": "rslib build",
     "check:lint": "eslint . --max-warnings 0",
     "check:types": "tsc --noEmit",
+    "check:updates": "ncu -u",
     "clean": "rm -rf .turbo dist node_modules build",
     "dev": "rslib build --watch",
     "fix:lint": "eslint --fix ."
@@ -32,7 +33,8 @@
   },
   "devDependencies": {
     "@phont/eslint-config": "workspace:*",
-    "@phont/typescript-config": "workspace:*"
+    "@phont/typescript-config": "workspace:*",
+    "npm-check-updates": "^18.0.2"
   },
   "publishConfig": {
     "access": "public"
