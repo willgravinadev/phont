@@ -122,6 +122,9 @@ importers:
       '@phont/typescript-config':
         specifier: workspace:*
         version: link:../../configs/typescript-config
+      '@rslib/core':
+        specifier: ^0.11.0
+        version: 0.11.0(typescript@5.8.3)
       '@types/node':
         specifier: ^24.1.0
         version: 24.1.0
@@ -260,6 +263,28 @@ importers:
         specifier: ^5.8.3
         version: 5.8.3
 
+  packages/env:
+    dependencies:
+      '@t3-oss/env-core':
+        specifier: ^0.13.8
+        version: 0.13.8(typescript@5.8.3)(zod@4.0.13)
+      '@t3-oss/env-nextjs':
+        specifier: ^0.13.8
+        version: 0.13.8(typescript@5.8.3)(zod@4.0.13)
+      zod:
+        specifier: ^4.0.13
+        version: 4.0.13
+    devDependencies:
+      '@phont/eslint-config':
+        specifier: workspace:*
+        version: link:../../configs/eslint-config
+      '@phont/typescript-config':
+        specifier: workspace:*
+        version: link:../../configs/typescript-config
+      npm-check-updates:
+        specifier: ^18.0.2
+        version: 18.0.2
+
   packages/utils:
     dependencies:
       clsx:
@@ -275,6 +300,9 @@ importers:
       '@phont/typescript-config':
         specifier: workspace:*
         version: link:../../configs/typescript-config
+      '@rslib/core':
+        specifier: ^0.11.0
+        version: 0.11.0(typescript@5.8.3)
       '@types/node':
         specifier: ^24.1.0
         version: 24.1.0
@@ -1830,6 +1858,42 @@ packages:
   '@swc/helpers@0.5.17':
     resolution:
       { integrity: sha512-5IKx/Y13RsYd+sauPb2x+U/xZikHjolzfuDgTAl/Tdf3Q8rslRvC19NKDLgAJQ6wsqADk10ntlv08nPFw/gO/A== }
+
+  '@t3-oss/env-core@0.13.8':
+    resolution:
+      { integrity: sha512-L1inmpzLQyYu4+Q1DyrXsGJYCXbtXjC4cICw1uAKv0ppYPQv656lhZPU91Qd1VS6SO/bou1/q5ufVzBGbNsUpw== }
+    peerDependencies:
+      arktype: ^2.1.0
+      typescript: '>=5.0.0'
+      valibot: ^1.0.0-beta.7 || ^1.0.0
+      zod: ^3.24.0 || ^4.0.0-beta.0
+    peerDependenciesMeta:
+      arktype:
+        optional: true
+      typescript:
+        optional: true
+      valibot:
+        optional: true
+      zod:
+        optional: true
+
+  '@t3-oss/env-nextjs@0.13.8':
+    resolution:
+      { integrity: sha512-QmTLnsdQJ8BiQad2W2nvV6oUpH4oMZMqnFEjhVpzU0h3sI9hn8zb8crjWJ1Amq453mGZs6A4v4ihIeBFDOrLeQ== }
+    peerDependencies:
+      arktype: ^2.1.0
+      typescript: '>=5.0.0'
+      valibot: ^1.0.0-beta.7 || ^1.0.0
+      zod: ^3.24.0 || ^4.0.0-beta.0
+    peerDependenciesMeta:
+      arktype:
+        optional: true
+      typescript:
+        optional: true
+      valibot:
+        optional: true
+      zod:
+        optional: true
 
   '@tanstack/eslint-plugin-query@5.81.2':
     resolution:
@@ -5048,9 +5112,9 @@ packages:
     resolution:
       { integrity: sha512-gzUt/qt81nXsFGKIFcC3YnfEAx5NkunCfnDlvuBSSFS02bcXu4Lmea0AFIUwbLWxWPx3d9p8S5QoaujKcNQxcQ== }
 
-  zod@4.0.10:
+  zod@4.0.13:
     resolution:
-      { integrity: sha512-3vB+UU3/VmLL2lvwcY/4RV2i9z/YU0DTV/tDuYjrwmx5WeJ7hwy+rGEEx8glHp6Yxw7ibRbKSaIFBgReRPe5KA== }
+      { integrity: sha512-jv+zRxuZQxTrFHzxZ46ezL2FtnE+M4HIJHJEwLsZ7UjrXHltdG6HrxvqM0twoVCWxJiYf8WqKjAcjztegpkB+Q== }
 
 snapshots:
   '@ampproject/remapping@2.3.0':
@@ -5752,7 +5816,7 @@ snapshots:
       '@eslint-react/eff': 1.52.3
       '@typescript-eslint/utils': 8.38.0(eslint@9.32.0(jiti@2.5.1))(typescript@5.8.3)
       ts-pattern: 5.8.0
-      zod: 4.0.10
+      zod: 4.0.13
     transitivePeerDependencies:
       - eslint
       - supports-color
@@ -5764,7 +5828,7 @@ snapshots:
       '@eslint-react/kit': 1.52.3(eslint@9.32.0(jiti@2.5.1))(typescript@5.8.3)
       '@typescript-eslint/utils': 8.38.0(eslint@9.32.0(jiti@2.5.1))(typescript@5.8.3)
       ts-pattern: 5.8.0
-      zod: 4.0.10
+      zod: 4.0.13
     transitivePeerDependencies:
       - eslint
       - supports-color
@@ -6256,6 +6320,18 @@ snapshots:
   '@swc/helpers@0.5.17':
     dependencies:
       tslib: 2.8.1
+
+  '@t3-oss/env-core@0.13.8(typescript@5.8.3)(zod@4.0.13)':
+    optionalDependencies:
+      typescript: 5.8.3
+      zod: 4.0.13
+
+  '@t3-oss/env-nextjs@0.13.8(typescript@5.8.3)(zod@4.0.13)':
+    dependencies:
+      '@t3-oss/env-core': 0.13.8(typescript@5.8.3)(zod@4.0.13)
+    optionalDependencies:
+      typescript: 5.8.3
+      zod: 4.0.13
 
   '@tanstack/eslint-plugin-query@5.81.2(eslint@9.32.0(jiti@2.5.1))(typescript@5.8.3)':
     dependencies:
@@ -9178,4 +9254,4 @@ snapshots:
 
   zod@3.25.76: {}
 
-  zod@4.0.10: {}
+  zod@4.0.13: {}
