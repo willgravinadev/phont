@@ -504,7 +504,7 @@ knowledge_base:
   linear:
     usage: auto
     team_keys:
-      - 'BENT'
+      - 'PHONT'
 
 code_generation:
   unit_tests:

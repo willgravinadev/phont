@@ -1,0 +1,1 @@
+# @phont/eslint-config

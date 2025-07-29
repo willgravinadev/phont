@@ -1,0 +1,1 @@
+# @phont/prettier-config

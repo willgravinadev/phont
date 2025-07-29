@@ -1,21 +1,61 @@
 {
   "$schema": "https://turborepo.com/schema.json",
-  "ui": "tui",
+  "globalDependencies": [".env"],
+  "globalEnv": ["COMMITLINT_OPENAI_API_KEY"],
   "tasks": {
     "build": {
       "dependsOn": ["^build"],
       "inputs": ["$TURBO_DEFAULT$", ".env*"],
-      "outputs": [".next/**", "!.next/cache/**"]
+      "outputs": [".next/**", "!.next/cache/**", "dist/**", "build/**"]
     },
-    "lint": {
-      "dependsOn": ["^lint"]
+    "check:lint": {
+      "dependsOn": ["^check:lint"]
     },
-    "check-types": {
-      "dependsOn": ["^check-types"]
+    "fix:lint": {
+      "dependsOn": ["^fix:lint"]
+    },
+    "check:types": {
+      "dependsOn": ["^check:types"]
+    },
+    "clean": {
+      "cache": false
     },
     "dev": {
       "cache": false,
       "persistent": true
+    },
+    "test:e2e": {
+      "outputs": ["playwright-report/**", "test-results/**"]
+    },
+    "test:e2e:inspector": {
+      "cache": false,
+      "persistent": true
+    },
+    "test:e2e:ui": {
+      "cache": false,
+      "persistent": true
+    },
+    "test:unit": {
+      "outputs": ["coverage/**"]
+    },
+    "test:unit:changed": {
+      "outputs": ["coverage/**"]
+    },
+    "test:unit:coverage": {
+      "outputs": ["coverage/**"]
+    },
+    "test:unit:coverage:ui": {
+      "outputs": ["coverage/**"]
+    },
+    "test:unit:related": {
+      "outputs": ["coverage/**"]
+    },
+    "test:unit:ui": {
+      "outputs": ["coverage/**"]
+    },
+    "test:unit:watch": {
+      "outputs": ["coverage/**"]
     }
-  }
+  },
+  "ui": "tui"
 }
