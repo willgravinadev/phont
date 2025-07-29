@@ -1,0 +1,27 @@
+{
+  "name": "core-api",
+  "type": "module",
+  "scripts": {
+    "build": "rm -rf dist && rslib build",
+    "check:lint": "eslint . --max-warnings 0",
+    "check:types": "tsc --noEmit",
+    "check:updates": "ncu -u",
+    "clean": "rm -rf .turbo dist node_modules build",
+    "dev": "tsx watch src/server.ts",
+    "fix:lint": "eslint --fix .",
+    "start": "node dist/server.js"
+  },
+  "dependencies": {
+    "@hono/node-server": "^1.17.1",
+    "hono": "^4.8.10"
+  },
+  "devDependencies": {
+    "@phont/eslint-config": "workspace:*",
+    "@phont/typescript-config": "workspace:*",
+    "@rslib/core": "^0.11.0",
+    "@types/node": "^24.1.0",
+    "npm-check-updates": "^18.0.2",
+    "tsx": "^4.20.3",
+    "typescript": "^5.8.3"
+  }
+}
