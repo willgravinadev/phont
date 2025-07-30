@@ -112,6 +112,12 @@ importers:
       '@hono/node-server':
         specifier: ^1.17.1
         version: 1.17.1(hono@4.8.10)
+      '@phont/domain':
+        specifier: workspace:*
+        version: link:../../packages/domain
+      '@phont/utils':
+        specifier: workspace:*
+        version: link:../../packages/utils
       hono:
         specifier: ^4.8.10
         version: 4.8.10
@@ -263,6 +269,31 @@ importers:
         specifier: ^5.8.3
         version: 5.8.3
 
+  packages/domain:
+    dependencies:
+      '@phont/utils':
+        specifier: workspace:*
+        version: link:../utils
+    devDependencies:
+      '@phont/eslint-config':
+        specifier: workspace:*
+        version: link:../../configs/eslint-config
+      '@phont/typescript-config':
+        specifier: workspace:*
+        version: link:../../configs/typescript-config
+      '@rslib/core':
+        specifier: ^0.11.0
+        version: 0.11.0(typescript@5.8.3)
+      '@types/node':
+        specifier: ^24.0.15
+        version: 24.1.0
+      npm-check-updates:
+        specifier: ^18.0.2
+        version: 18.0.2
+      typescript:
+        specifier: ^5.8.3
+        version: 5.8.3
+
   packages/env:
     dependencies:
       '@t3-oss/env-core':
@@ -284,6 +315,9 @@ importers:
       npm-check-updates:
         specifier: ^18.0.2
         version: 18.0.2
+      typescript:
+        specifier: ^5.8.3
+        version: 5.8.3
 
   packages/utils:
     dependencies:

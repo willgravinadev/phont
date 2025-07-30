@@ -9,7 +9,8 @@ export default eslintConfig(
   },
   {
     rules: {
-      '@typescript-eslint/no-unnecessary-condition': 'off'
+      '@typescript-eslint/no-unnecessary-condition': 'off',
+      '@typescript-eslint/no-redundant-type-constituents': 'off'
     }
   }
 )
