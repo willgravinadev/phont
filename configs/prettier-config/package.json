@@ -16,7 +16,7 @@
   "scripts": {
     "build": "rslib build",
     "check:lint": "eslint . --max-warnings 0",
-    "check:types": "tsc --noEmit",
+    "check:types": "tsc --noEmit --pretty",
     "check:updates": "ncu -u",
     "clean": "rm -rf .turbo dist node_modules build",
     "dev": "rslib build --watch",
