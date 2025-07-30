@@ -1,0 +1,42 @@
+{
+  "name": "@phont/domain",
+  "version": "0.0.0",
+  "license": "MIT",
+  "type": "module",
+  "exports": {
+    ".": {
+      "import": "./dist/index.js",
+      "types": "./dist/index.d.ts"
+    }
+  },
+  "main": "./dist/index.js",
+  "types": "./dist/index.d.ts",
+  "files": [
+    "dist"
+  ],
+  "scripts": {
+    "build": "rslib build",
+    "check:lint": "eslint . --max-warnings 0",
+    "check:types": "tsc --noEmit --pretty",
+    "clean": "rm -rf .turbo dist",
+    "dev": "rslib build --watch",
+    "fix:lint": "eslint --fix ."
+  },
+  "lint-staged": {
+    "*.{cjs,mjs,js,jsx,cts,mts,ts,tsx,json}": "eslint --fix"
+  },
+  "dependencies": {
+    "@phont/utils": "workspace:*"
+  },
+  "devDependencies": {
+    "@phont/eslint-config": "workspace:*",
+    "@phont/typescript-config": "workspace:*",
+    "@rslib/core": "^0.11.0",
+    "@types/node": "^24.0.15",
+    "npm-check-updates": "^18.0.2",
+    "typescript": "^5.8.3"
+  },
+  "publishConfig": {
+    "access": "public"
+  }
+}
